@@ -1,15 +1,9 @@
-import sys
+import game_class as game
 
-argumento = sys.argv
+print("Cool!Let's play some Rock, Paper & Scissor")
 
-print(argumento[1])
+new_game = game.rock_paper_scissor()
 
-def rock_paper_scissors(rounds):
-    for i in range((rounds)):
-        print(rounds)
-        rounds -= 1
+new_game.assign_player_name()
 
-
-
-
-# print(rock_paper_scissors(int(input("How many rounds?"))))
+new_game.play()
