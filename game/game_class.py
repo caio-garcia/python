@@ -10,7 +10,7 @@ class rock_paper_scissor:
         self.NPC_points = 0
 
         self.rounds = 1
-        self.options = ["rock", "paper", "scissor"]
+        self.options = ["rock", "paper", "scissor","r","p","s"]
     
     def assign_player_name(self):
         name = input("\nPlease enter your name: ")
@@ -27,11 +27,16 @@ class rock_paper_scissor:
         return print(f'\nNice {self.rounds} rounds!')
 
     def player_option_evaluter(self):
-        player_option = input(f'Please select one option ({self.options[0]}, {self.options[1]}, {self.options[2]}): ')
+        player_option = input('Please select one option [r]ock, [p]aper, [s]cissor ')
+        options_dictionary = {
+            "r": "rock",
+            "p": "paper",
+            "s": "scissor"
+        }
         while (self.options.count(player_option.lower())) <= 0 :
-            player_option = input(f'Please select one of these options ({self.options[0]}, {self.options[1]}, {self.options[2]}): ')
+            player_option = input('Invalid Option!\nPlease select one option [r]ock, [p]aper, [s]cissor ')
         else:
-            return player_option.lower()
+            return options_dictionary[player_option] if player_option in ['r','s','p'] else player_option.lower()
 
     def score_board(self):
         if self.player_points > self.NPC_points:
@@ -57,6 +62,18 @@ class rock_paper_scissor:
             pass
         
         self.partial_results()
+    
+    def play_more_question(self):
+        more_game_answer = input("Would like to play more? (yes/no) ")
+
+        while (["yes","y","no","n"].count(more_game_answer) <= 0):
+            more_game_answer = input("Value not accepted!\nWould like to play more? (yes/no) ")
+
+        if more_game_answer.lower() in ['yes', 'y']:
+            self.player_points, self.NPC_points = 0 , 0
+            self.play()
+        elif more_game_answer.lower() in ["no", 'n']:
+            print(f'\nHope you had fun, {self.player_name}!')
 
     def rounds_phases(self):
         for i in range(self.rounds):
@@ -70,11 +87,9 @@ class rock_paper_scissor:
 
             if i == (self.rounds - 1):
                 self.score_board()
-                if input("Would like to play more? (yes/no) ") == 'yes':
-                    self.player_points, self.NPC_points = 0 , 0
-                    self.play()
-                else:
-                    print(f'\nHope you had fun, {self.player_name}!')
+                self.play_more_question()
+
+
 
     def play(self):
         self.assign_no_of_rounds()
