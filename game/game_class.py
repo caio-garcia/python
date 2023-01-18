@@ -26,17 +26,17 @@ class rock_paper_scissor:
         self.rounds = no_of_rounds
         return print(f'\nNice {self.rounds} rounds!')
 
-    def player_option_evaluter(self):
-        player_option = input('Please select one option [r]ock, [p]aper, [s]cissor ')
+    def option_evaluter(self, op):
+        
         options_dictionary = {
             "r": "rock",
             "p": "paper",
             "s": "scissor"
         }
-        while (self.options.count(player_option.lower())) <= 0 :
-            player_option = input('Invalid Option!\nPlease select one option [r]ock, [p]aper, [s]cissor ')
+        while (self.options.count(op)) <= 0 :
+            op = input('Invalid Option!\nPlease select one option [r]ock, [p]aper, [s]cissor ')
         else:
-            return options_dictionary[player_option] if player_option in ['r','s','p'] else player_option.lower()
+            return options_dictionary[op] if op in ['r','s','p'] else op.lower()
 
     def score_board(self):
         if self.player_points > self.NPC_points:
@@ -79,8 +79,8 @@ class rock_paper_scissor:
         for i in range(self.rounds):
             print(f'\nRound {i + 1}')
 
-            self.player_option = self.player_option_evaluter()
-            self.NPC_option = random.choice(self.options)
+            self.player_option = self.option_evaluter(input('Please select one option [r]ock, [p]aper, [s]cissor '))
+            self.NPC_option = self.option_evaluter(random.choice(self.options))
 
             self.game_evaluater(self.player_option, self.NPC_option)
 
