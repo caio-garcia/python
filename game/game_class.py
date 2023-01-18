@@ -17,13 +17,18 @@ class rock_paper_scissor:
         self.player_name = name
         return print(f'\nWelcome, {self.player_name}!')
     
-    def assign_no_of_rounds(self):
-        no_of_rounds = int(input("\nHow many rounds would you like to play? "))
+    def assign_no_of_rounds(self, no_of_rounds):
+        while True:
+            try:
+                int(no_of_rounds)
+                while int(no_of_rounds) <= 0:
+                    no_of_rounds = int(input("\nPlease enter 1 or more for number of rounds:  "))
+                break
+            except ValueError:
+                self.assign_no_of_rounds(no_of_rounds = (input("\nInvalid Option!\nHow many rounds would you like to play? ")))
+                break
         
-        while no_of_rounds <= 0:
-            no_of_rounds = int(input("\nPlease enter 1 or more for number of rounds:  "))
-        
-        self.rounds = no_of_rounds
+        self.rounds = int(no_of_rounds)
         return print(f'\nNice {self.rounds} rounds!')
 
     def option_evaluter(self, op):
@@ -89,8 +94,6 @@ class rock_paper_scissor:
                 self.score_board()
                 self.play_more_question()
 
-
-
     def play(self):
-        self.assign_no_of_rounds()
+        self.assign_no_of_rounds((input("\nHow many rounds would you like to play? ")))
         self.rounds_phases()
